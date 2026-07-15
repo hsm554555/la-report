@@ -48,19 +48,20 @@ function extractDetailRows(d, brand){
            (d.presets&&d.presets[0]&&(d.presets[0].spl||d.presets[0].max_spl)) ||
            d._spec_spl || '';
   if(splStr || splVal) add('Max SPL', splStr || (splVal+' dB'), function(){ return splVal; });
-  // 커버리지
+  // 커버리지 — 라벨은 항상 '커버리지'로 고정 (비교 시 A 제품의 행 라벨과 매칭돼야 B/C 값이 표시되므로,
+  // 라벨을 데이터 소스별로 다르게 두면 라벨 불일치로 다른 제품의 커버리지 행이 사라짐)
   var simpleDeg = /^\d+(\.\d+)?°$/;
   if(d.h_coverage && d.v_coverage && simpleDeg.test(d.h_coverage) && simpleDeg.test(d.v_coverage)){
     // 가로·세로 모두 단순 각도값이면 "H × V" 한 줄로 합쳐서 표기
-    add('커버리지 (H × V)', d.h_coverage+' × '+d.v_coverage, null);
+    add('커버리지', d.h_coverage+' × '+d.v_coverage, null);
   } else {
     var covSrc = d.waveguide_dir ? 'waveguide_dir' : d.coverage ? 'coverage' : d.h_coverage ? 'h_coverage' :
                  d.conical_coverage ? 'conical_coverage' : d.enclosure_dir ? 'enclosure_dir' : d.rotatable_horn ? 'rotatable_horn' : '';
     var cov = covSrc ? d[covSrc] : '';
     if(cov){
-      // h_coverage가 단일 축(가로) 값만 담고 있을 때만 (Horizontal) 라벨 표기
+      // h_coverage가 단일 축(가로) 값만 담고 있을 때는 값 뒤에 (Horizontal) 표기
       var isSingleAxis = covSrc==='h_coverage' && cov.indexOf('×')<0 && cov.toLowerCase().indexOf('conical')<0;
-      add(isSingleAxis ? '커버리지 (Horizontal)' : '커버리지', cov, null);
+      add('커버리지', isSingleAxis ? cov+' (Horizontal)' : cov, null);
     }
     if(d.v_coverage) add('커버리지 (Vertical)', d.v_coverage, null);
   }
@@ -107,7 +108,20 @@ function extractBwAll(d){var v=d.operating_range||d.freq_response_5db||d.bandwid
 
 function extractWeightAll(d){var v=d.weight||'';var m=String(v).match(/(\d+(?:\.\d+)?)/);return m?parseFloat(m[1]):9999;}
 
-function extractLfInchAll(d){var v=d.lf||d.lf_driver||'';var m=String(v).match(/(\d+)[\"″]/);if(m)return parseInt(m[1]);m=String(v).match(/(\d+)/);return m?parseInt(m[1]):0;}
+// 문자열에 등장하는 모든 'N"' 인치 표기 중 가장 큰 값을 반환 (예: '2 × 12" cone' → 12, 'LC: 12" · LF: 10"' → 12)
+function maxInchInStr(str){
+  var s=String(str||''), maxI=0, qi=s.indexOf('"'), i=0;
+  while(qi>=0){
+    var j=qi-1;
+    while(j>=0&&((s[j]>='0'&&s[j]<='9')||s[j]==='.')){ j--; }
+    var n=parseFloat(s.slice(j+1,qi));
+    if(!isNaN(n)&&n>maxI) maxI=n;
+    i=qi+1; qi=s.indexOf('"',i);
+  }
+  return maxI;
+}
+
+function extractLfInchAll(d){var v=d.lf||d.lf_driver||'';var n=maxInchInStr(v);if(n>0)return n;var m=String(v).match(/(\d+)/);return m?parseInt(m[1]):0;}
 
 function extractCovAll(d){return d.waveguide_dir||d.coverage||d.h_coverage||d.conical_coverage||d.enclosure_dir||'';}
 

@@ -26,6 +26,75 @@ function buildCompareOptions(){
   if(sa) sa.addEventListener('input', function(){ buildOptionsFor(document.getElementById('cmpA'), sa.value); });
   if(sb) sb.addEventListener('input', function(){ buildOptionsFor(document.getElementById('cmpB'), sb.value, getCmpARef()); });
   if(sc) sc.addEventListener('input', function(){ buildOptionsFor(document.getElementById('cmpC'), sc.value, getCmpARef()); });
+  renderCmpSavedList();
+}
+
+// ----- 비교 저장 (최대 5개, localStorage) -----
+var CMP_SAVE_KEY='laReportCmpSaved', CMP_SAVE_MAX=5;
+
+function getSavedCompares(){
+  try{ var v=JSON.parse(localStorage.getItem(CMP_SAVE_KEY)); return Array.isArray(v)?v:[]; }catch(e){ return []; }
+}
+function setSavedCompares(list){
+  try{ localStorage.setItem(CMP_SAVE_KEY, JSON.stringify(list)); }catch(e){}
+}
+function cmpProductName(val){
+  if(!val) return null;
+  var parts=val.split('::'); if(parts.length<2) return null;
+  var bd=BRANDS[parts[0]]; if(!bd) return null;
+  var p=bd.data[parts[1]]; if(!p) return null;
+  return p.n;
+}
+function saveCmpCompare(){
+  var a=document.getElementById('cmpA').value;
+  var b=document.getElementById('cmpB').value;
+  var c=document.getElementById('cmpC').value;
+  if(!a&&!b&&!c){ alert('저장할 제품을 먼저 선택해주세요.'); return; }
+  var list=getSavedCompares();
+  if(list.length>=CMP_SAVE_MAX){
+    alert('저장 공간이 이미 다 찼습니다 (최대 '+CMP_SAVE_MAX+'개). 기존 저장 항목을 삭제한 뒤 다시 저장해주세요.');
+    return;
+  }
+  var label=[a,b,c].map(cmpProductName).filter(Boolean).join(' vs ') || '(제품 미선택)';
+  list.push({a:a,b:b,c:c,label:label});
+  setSavedCompares(list);
+  renderCmpSavedList();
+}
+function loadCmpCompare(idx){
+  var item=getSavedCompares()[idx]; if(!item) return;
+  var lf=document.getElementById('cmpLfFilter'); if(lf) lf.value='';
+  document.getElementById('cmpA').value=item.a||'';
+  applyCmpFilter();
+  document.getElementById('cmpB').value=item.b||'';
+  document.getElementById('cmpC').value=item.c||'';
+  renderCompare();
+}
+function deleteCmpCompare(idx){
+  var list=getSavedCompares();
+  list.splice(idx,1);
+  setSavedCompares(list);
+  renderCmpSavedList();
+}
+function resetCmpCompare(){
+  ['cmpSearchA','cmpSearchB','cmpSearchC'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.value='';
+  });
+  document.getElementById('cmpA').value='';
+  document.getElementById('cmpB').value='';
+  document.getElementById('cmpC').value='';
+  buildOptionsFor(document.getElementById('cmpB'),'');
+  buildOptionsFor(document.getElementById('cmpC'),'');
+  var lf=document.getElementById('cmpLfFilter'); if(lf) lf.value='';
+  applyCmpFilter();
+  renderCompare();
+}
+function renderCmpSavedList(){
+  var el=document.getElementById('cmpSavedList'); if(!el) return;
+  var list=getSavedCompares();
+  el.innerHTML=list.map(function(item,i){
+    return '<div class="cmp-saved-item"><span class="cmp-saved-load" onclick="loadCmpCompare('+i+')">'+item.label+'</span>'+
+           '<button onclick="deleteCmpCompare('+i+')" title="삭제">×</button></div>';
+  }).join('');
 }
 
 function getCmpARef(){
@@ -70,6 +139,8 @@ function applyCmpFilter(){
   if(!ref){if(panel)panel.style.display='none';return;}
   if(panel)panel.style.display='';
   var lfF=(document.getElementById('cmpLfFilter')||{value:''}).value||'';
+  var refD=(ref.p.spec&&ref.p.spec.detail)||{};
+  var refLfInch=maxInchInStr(refD.lf||refD.lf_driver);
 
   // ptype 분류 헬퍼 (applyCmpFilter 내부용)
   function classifyPtype(p2){
@@ -112,17 +183,11 @@ function applyCmpFilter(){
       var d2=(p2.spec&&p2.spec.detail)||{};
       var spl2=extractSpl(d2); var wt2=extractWeight(d2); var bw2=extractBw(d2);
       var ok=true;
-      // LF 드라이버 인치수 동일 필터
-      if(lfF==='same'){
-        var d1=(ref.p.spec&&ref.p.spec.detail)||{};
-        var d2=(p2.spec&&p2.spec.detail)||{};
-        var lf1=d1.lf||d1.lf_driver||'', lf2=d2.lf||d2.lf_driver||'';
-        var lfM1=String(lf1).match(/(\d+)[\"″]/); // e.g. 12" → 12
-        var lfM2=String(lf2).match(/(\d+)[\"″]/);
-        if(!lfM1) lfM1=String(lf1).match(/(\d+)/);
-        if(!lfM2) lfM2=String(lf2).match(/(\d+)/);
-        var lfN1=lfM1?parseInt(lfM1[1]):0, lfN2=lfM2?parseInt(lfM2[1]):0;
-        ok=ok&&(lfN1>0&&lfN2>0&&lfN1===lfN2);
+      // LF 드라이버 인치수 필터 (동일 / 유사 ±2")
+      if(lfF==='same'||lfF==='similar'){
+        var lf2Inch=maxInchInStr(d2.lf||d2.lf_driver);
+        var tol=lfF==='same'?0:2;
+        ok=ok&&(refLfInch>0&&lf2Inch>0&&Math.abs(refLfInch-lf2Inch)<=tol);
       }
       // 제품 분류 동기화 (ptype)
       if(ref.ptype&&ref.ptype!=='other'){
@@ -157,17 +222,11 @@ function applyCmpFilter(){
         var d2=(p2.spec&&p2.spec.detail)||{};
         var spl2=extractSpl(d2); var wt2=extractWeight(d2); var bw2=extractBw(d2);
         var ok=true;
-        // LF 드라이버 인치수 동일 필터
-        if(lfF==='same'){
-          var d1c=(ref.p.spec&&ref.p.spec.detail)||{};
-          var d2c=(p2.spec&&p2.spec.detail)||{};
-          var lf1c=d1c.lf||d1c.lf_driver||'', lf2c=d2c.lf||d2c.lf_driver||'';
-          var lfM1c=String(lf1c).match(/(\d+)[\"″]/);
-          var lfM2c=String(lf2c).match(/(\d+)[\"″]/);
-          if(!lfM1c) lfM1c=String(lf1c).match(/(\d+)/);
-          if(!lfM2c) lfM2c=String(lf2c).match(/(\d+)/);
-          var lfN1c=lfM1c?parseInt(lfM1c[1]):0, lfN2c=lfM2c?parseInt(lfM2c[1]):0;
-          ok=ok&&(lfN1c>0&&lfN2c>0&&lfN1c===lfN2c);
+        // LF 드라이버 인치수 필터 (동일 / 유사 ±2")
+        if(lfF==='same'||lfF==='similar'){
+          var lf2Inch=maxInchInStr(d2.lf||d2.lf_driver);
+          var tol=lfF==='same'?0:2;
+          ok=ok&&(refLfInch>0&&lf2Inch>0&&Math.abs(refLfInch-lf2Inch)<=tol);
         }
         if(ref.ptype&&ref.ptype!=='other'){var pt2c=classifyPtype(p2);ok=ok&&(pt2c===ref.ptype||pt2c==='other');}
         if(ok) innerC+='<option value="'+bn+'::'+k+'">'+p2.n+'</option>';

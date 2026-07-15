@@ -13,6 +13,14 @@
 .cmp-select{width:100%;background:#141414;border:.5px solid #2a2a2a;border-radius:8px;padding:.7rem .9rem;color:#eee;font-size:14px;font-family:inherit;cursor:pointer}
 .cmp-select:focus{outline:none;border-color:#888}
 .cmp-vs{font-size:18px;font-weight:800;color:#666;flex-shrink:0;padding-top:1.1rem}
+.cmp-save-bar{display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem}
+.cmp-save-hint{font-size:11px;color:rgba(255,255,255,0.35)}
+.cmp-saved-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1rem}
+.cmp-saved-item{display:flex;align-items:center;gap:8px;background:#141414;border:.5px solid #2a2a2a;border-radius:8px;padding:.5rem .7rem;font-size:12px;color:#ccc}
+.cmp-saved-load{cursor:pointer;color:#ddd}
+.cmp-saved-load:hover{color:#fff;text-decoration:underline}
+.cmp-saved-item button{background:none;border:none;color:rgba(255,255,255,0.4);cursor:pointer;font-size:14px;line-height:1;padding:0 2px}
+.cmp-saved-item button:hover{color:#f87171}
 .cmp-result{margin-top:.5rem}
 .cmp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .cmp-card{background:#111;border:.5px solid #242424;border-radius:10px;overflow:hidden}
