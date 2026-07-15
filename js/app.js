@@ -117,8 +117,7 @@ if(mProducts){
                                     sn.indexOf('ultracompact')>=0||
                                     sn.indexOf('slim')>=0||
                                     sn.indexOf('ceiling')>=0||
-                                    sn.indexOf('self-powered miniature')>=0||
-                                    sn.indexOf('stage monitor')>=0;
+                                    sn.indexOf('self-powered miniature')>=0;
         // Sub: Low Frequency (LFC / Installation / Miniature)
         if(dispF2==='sub') return sn.indexOf('low frequency')>=0||sn.indexOf('lfc')>=0;
         if(dispF2==='monitor') return sn.indexOf('stage monitor')>=0||sn.indexOf('mjf')>=0;
@@ -140,6 +139,7 @@ if(mProducts){
       if(el.tagName==='SELECT') el.selectedIndex=0; else el.value='';
     }); mFilter();
   }
+  window.resetMeyerFilters = resetMeyerFilters;
   if(mq){ mq.addEventListener('input', mFilter); }
   ['mSplFilter','mUseFilter','mDriverFilter','mBwFilter','mWeightFilter','mCovFilter','mDispFilter'].forEach(function(id){
     var el=document.getElementById(id); if(el) el.addEventListener('change',mFilter);
@@ -239,9 +239,7 @@ if(dProducts){
         if(dispF==='line') return sn.indexOf('line array')>=0;
         if(dispF==='point') return sn.indexOf('point source')>=0;
         if(dispF==='sub') return sn.indexOf('subwoofer')>=0||sn.indexOf('sub')>=0;
-        if(dispF==='aug') return sn.indexOf('xs')>=0||sn.indexOf('e series')>=0||
-                                  sn.indexOf('u series')>=0||sn.indexOf('al series')>=0||
-                                  sn.indexOf('augmented')>=0||sn.indexOf('column')>=0;
+        if(dispF==='aug') return sn.indexOf('augmented')>=0;
         if(dispF==='monitor') return sn.indexOf('stage monitor')>=0;
         return true;
       })();
@@ -260,6 +258,7 @@ if(dProducts){
       if(el.tagName==='SELECT') el.selectedIndex=0; else el.value='';
     }); dFilter();
   }
+  window.resetDnbFilters = resetDnbFilters;
   if(dq){ dq.addEventListener('input', dFilter); }
   ['dSplFilter','dUseFilter','dAmpFilter','dDriverFilter','dBwFilter','dWeightFilter','dCovFilter','dDispFilter'].forEach(function(id){
     var el=document.getElementById(id); if(el) el.addEventListener('change',dFilter);

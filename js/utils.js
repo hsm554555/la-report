@@ -127,7 +127,7 @@ function extractCovAll(d){return d.waveguide_dir||d.coverage||d.h_coverage||d.co
 
 function classifyPtypeAll(p){
   var t=(p.t||'').toLowerCase(),n=(p.n||'').toLowerCase();
-  if(t.indexOf('subwoofer')>=0||t.indexOf('lf extension')>=0||t.indexOf('infra sub')>=0||t.indexOf('low frequency')>=0||t.indexOf('lfc')>=0||/^(ks|sb|cs1)/.test(n)||n.indexOf('k1-sb')>=0||n==='syva sub'||n==='syva low') return 'sub';
+  if(t.indexOf('subwoofer')>=0||t.indexOf('lf extension')>=0||t.indexOf('infra sub')>=0||t.indexOf('low frequency')>=0||t.indexOf('low-frequency')>=0||t.indexOf('lfc')>=0||n.indexOf('lfc')>=0||/^(ks|sb|cs1)/.test(n)||n.indexOf('k1-sb')>=0||n==='syva sub'||n==='syva low') return 'sub';
   if(t.indexOf('augmented array')>=0||t.indexOf('a series')>=0) return 'aug';
   if((t.indexOf('s series')>=0||t.indexOf('colinear source')>=0||t.indexOf('u series')>=0)&&t.indexOf('compact column')<0) return 'column';
   if(t.indexOf('stage monitor')>=0||n.indexOf('mjf')>=0) return 'monitor';

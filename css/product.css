@@ -11,6 +11,15 @@
 #page-dnb .sg-throw{border-color:#a01015;background:#1a0808}
 #page-dnb .prod-img-name{color:#e2001a}
 #page-dnb .ps-input:focus,#page-dnb .ps-select:focus{border-color:#e2001a}
+/* 전체 제품 탭: 브랜드별 섹션 강조색 (page-meyer/page-dnb와 동일 색상) */
+.all-brand-section[data-brand="Meyer Sound"] .stab.on{color:#5a9bf5;border-color:#3a7bd5;background:#0a1322}
+.all-brand-section[data-brand="Meyer Sound"] .sg-head{border-left-color:#2a5a9a}
+.all-brand-section[data-brand="Meyer Sound"] .series-tabs{border-left-color:#2a5a9a}
+.all-brand-section[data-brand="Meyer Sound"] .sg-throw{color:#5a9bf5;border-color:#2a5a9a;background:#0a1322}
+.all-brand-section[data-brand="d&b audiotechnik"] .stab.on{color:#ff5a68;border-color:#e2001a;background:#1a0808}
+.all-brand-section[data-brand="d&b audiotechnik"] .sg-head{border-left-color:#a01015}
+.all-brand-section[data-brand="d&b audiotechnik"] .series-tabs{border-left-color:#a01015}
+.all-brand-section[data-brand="d&b audiotechnik"] .sg-throw{color:#ff5a68;border-color:#a01015;background:#1a0808}
 .cc-item{display:flex;flex-direction:column;gap:2px}
 .cc-lbl{font-size:11px;color:#888;letter-spacing:.06em}
 .cc-val{font-size:13px;color:#e0e0e0}

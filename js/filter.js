@@ -97,17 +97,8 @@ function applyProdFilter(){
       return true;
     })();
 
-    // 10. 제품 분류 (throw / sub)
-    var throwMatch = !throwF || (function(){
-      var tags=(p.tags||[]).join(' ').toLowerCase();
-      var t=(p.t||'').toLowerCase();
-      var n=p.n.toLowerCase();
-      if(throwF==='short')  return tags.indexOf('short')>=0||t.indexOf('short')>=0;
-      if(throwF==='medium') return tags.indexOf('medium')>=0||t.indexOf('medium')>=0;
-      if(throwF==='long')   return tags.indexOf('long')>=0||t.indexOf('long')>=0;
-      if(throwF==='sub')    return t.indexOf('sub')>=0||n.indexOf('sb')>=0||n.indexOf('ks')>=0||n==='cs1';
-      return true;
-    })();
+    // 10. 제품 분류 (Line Array / Subwoofer / Column Speaker / Point Source / Augmented Array)
+    var throwMatch = !throwF || classifyPtypeAll(p)===throwF;
 
     var pass = nameMatch&&splMatch&&ampMatch&&useMatch&&drvMatch&&wayMatch&&bwMatch&&wtOk&&covMatch&&throwMatch;
     if(pass){ st.classList.remove('hidden'); shown++; }
@@ -132,7 +123,7 @@ function resetProdFilters(){
 function covMatchAll(cov,covF){
   if(!covF)return true;
   var s=String(cov).toLowerCase();var nums=s.match(/\d+/g)||[];var first=nums.length?parseInt(nums[0]):0;
-  if(covF==='omni')return s.indexOf('omni')>=0||s.indexOf('axi')>=0||s.indexOf('360')>=0;
+  if(covF==='omni')return s.indexOf('omni')>=0||s.indexOf('360')>=0||s.indexOf('standard')>=0;
   if(covF==='60')return first>0&&first<=60;
   if(covF==='90')return first>=80&&first<=100;
   if(covF==='120')return first>=120;
