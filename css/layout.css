@@ -1,0 +1,64 @@
+/* ===== 멀티 브랜드 셸 ===== */
+.brandnav{background:#060606;border-bottom:1px solid #1e1e1e;position:sticky;top:0;z-index:50}
+.bn-inner{max-width:1500px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:2rem;height:56px}
+.bn-title{font-size:14px;font-weight:700;color:#888;letter-spacing:.02em;white-space:nowrap}
+.bn-tabs{display:flex;gap:.4rem;align-items:center}
+.bn-tab{font-size:14px;font-weight:600;padding:.55rem 1.1rem;border-radius:7px;color:#888;cursor:pointer;transition:all .15s;white-space:nowrap}
+.bn-tab:hover{color:#ddd;background:#131313}
+.bn-tab.on{color:#fff;background:#1a1a1a}
+.page{display:none}
+.page.on{display:block}
+/* L-Acoustics on: 골드 */
+#page-la.on .bn-tab[data-page=la]{color:#d4af5a}
+#page-meyer .sec.on{padding:1.5rem 0 .5rem}
+#page-dnb .sec.on{padding:1.5rem 0 .5rem}
+/* ===== 브랜드별 포인트 색 오버라이드 (제품 토글/상세 영역) ===== */
+#page-meyer .prod-type,#page-meyer .sg-throw,#page-meyer .stat-val,
+#page-meyer .sec-h,#page-meyer .case-cat,#page-meyer .g-region,#page-meyer .tl-yr,
+#page-meyer .amp-type,#page-meyer .sw-type,#page-meyer .tech-chip,#page-meyer .tech-hero-tag,
+#page-meyer .case-sys b,#page-meyer .sw-edge b,#page-meyer .cover-tag{color:#5a9bf5}
+#page-meyer .tab.on{color:#5a9bf5;border-bottom-color:#3a7bd5;background:#0a1322}
+#page-dnb .prod-type,#page-dnb .sg-throw,#page-dnb .stat-val,
+#page-dnb .sec-h,#page-dnb .case-cat,#page-dnb .g-region,#page-dnb .tl-yr,
+#page-dnb .amp-type,#page-dnb .sw-type,#page-dnb .tech-chip,#page-dnb .tech-hero-tag,
+#page-dnb .case-sys b,#page-dnb .sw-edge b,#page-dnb .cover-tag{color:#ff5a68}
+#page-dnb .tab.on{color:#ff5a68;border-bottom-color:#e2001a;background:#1a0808}
+/* 플레이스홀더 블록 */
+.ph-block{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;min-height:320px;border:.5px dashed #2a2a2a;border-radius:12px;color:#666;font-size:15px;text-align:center;padding:2rem;line-height:1.7}
+.ph-block span{font-size:13px;color:#555}
+.logo-ph{width:120px;height:80px;border:.5px dashed #333;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#444;font-size:13px;font-weight:700}
+/* Meyer/dnb cover 색상 */
+.meyer-cover .cover-title{color:#f8f8f8}
+.meyer-cover .cover-tag{background:#0a1322;border-color:#2a5a9a;color:#5a9bf5}
+.dnb-cover .cover-title{color:#f8f8f8}
+.dnb-cover .cover-tag{background:#1a0808;border-color:#a01015;color:#ff5a68}
+.wrap{max-width:1500px;margin:0 auto;padding:0 3.5rem}
+.cover{background:#0d0d0d;border-bottom:1px solid #2a2a2a;padding:2rem 2rem 1.75rem}
+.cover-meta{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem}
+.cover-tag{font-size:10px;letter-spacing:.14em;color:#9a7a3a;text-transform:uppercase;border:.5px solid #3a2e14;padding:3px 10px;border-radius:3px;background:#120f08}
+.cover-date{font-size:11px;color:#666}
+.cover-top{display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;margin-bottom:1.5rem}
+.cover-left{flex:1;min-width:0}
+.cover-logo{flex-shrink:0;width:150px;display:flex;align-items:flex-start;justify-content:flex-end}
+.cover-logo img{width:100%;height:auto;max-width:150px}
+#page-meyer .cover-logo{width:300px}
+#page-meyer .cover-logo img{max-width:300px}
+#page-dnb .cover-logo{width:320px}
+#page-dnb .cover-logo img{max-width:320px}
+.cover-title{font-size:32px;font-weight:800;color:#f8f8f8;letter-spacing:-.01em;margin-bottom:.35rem}
+.cover-sub{font-size:14px;color:#b0b0b0;margin-bottom:1.5rem;max-width:580px;line-height:1.6}
+.cover-context{display:flex;gap:1.5rem;padding:1rem 1.25rem;background:#0f0f0f;border:.5px solid #222;border-radius:6px;margin-bottom:1.5rem;flex-wrap:wrap}
+.stat-row{display:grid;grid-template-columns:repeat(5,1fr);border:.5px solid #222;border-radius:6px;overflow:hidden}
+.stat{padding:.875rem 1rem;border-right:.5px solid #222}
+.stat:last-child{border-right:none}
+.stat-val{font-size:18px;font-weight:700;color:#d4af5a}
+.stat-lbl{font-size:11px;color:#999;margin-top:3px;line-height:1.4}
+.tabs{display:flex;border-bottom:.5px solid #2a2a2a;background:#0c0c0c;position:sticky;top:0;z-index:10;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;text-align:center;font-size:13px;padding:.85rem 1rem;color:#999;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;border-right:.5px solid #1a1a1a;letter-spacing:-.01em;transition:all .15s}
+.tab:hover{color:#ddd;background:#101010}
+.tab.on{color:#d4af5a;border-bottom-color:#c8a455;background:#120f08}
+.tab:last-child{border-right:none}
+.sec{display:none}
+.sec.on{display:block}
+.sec-h{font-size:11px;letter-spacing:.12em;color:#8a6a38;text-transform:uppercase;margin:.25rem 0 1.1rem;padding-bottom:.5rem;border-bottom:.5px solid #1e1e1e}

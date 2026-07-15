@@ -1,0 +1,229 @@
+/* 브랜드별 강조색 변수 */
+#page-meyer{--accent:#3a7bd5;--accent-dim:#2a5a9a;--accent-bg:#0a1322}
+#page-dnb{--accent:#e2001a;--accent-dim:#a01015;--accent-bg:#1a0808}
+#page-meyer .stab.on{color:#5a9bf5;border-color:#3a7bd5;background:#0a1322}
+#page-meyer .ptag.new,#page-meyer .ptag.type,#page-meyer .badge.new,#page-meyer .tech-block-badge,#page-meyer .biz-tag{color:#5a9bf5;border-color:#2a5a9a;background:#0a1322}
+#page-meyer .sg-throw{border-color:#2a5a9a;background:#0a1322}
+#page-meyer .prod-img-name{color:#3a7bd5}
+#page-meyer .ps-input:focus,#page-meyer .ps-select:focus{border-color:#3a7bd5}
+#page-dnb .stab.on{color:#ff5a68;border-color:#e2001a;background:#1a0808}
+#page-dnb .ptag.new,#page-dnb .ptag.type,#page-dnb .badge.new,#page-dnb .tech-block-badge,#page-dnb .biz-tag{color:#ff5a68;border-color:#a01015;background:#1a0808}
+#page-dnb .sg-throw{border-color:#a01015;background:#1a0808}
+#page-dnb .prod-img-name{color:#e2001a}
+#page-dnb .ps-input:focus,#page-dnb .ps-select:focus{border-color:#e2001a}
+.cc-item{display:flex;flex-direction:column;gap:2px}
+.cc-lbl{font-size:11px;color:#888;letter-spacing:.06em}
+.cc-val{font-size:13px;color:#e0e0e0}
+.body{padding:1.75rem 2rem}
+.sg-head{display:flex;align-items:center;gap:.75rem;margin:0;padding:.6rem .9rem;background:#0c0c0c;border:.5px solid #1d1d1d;border-bottom:none;border-left:2px solid #2a2418;border-radius:8px 8px 0 0;min-height:40px;overflow:hidden}
+#page-meyer .sg-head{border-left-color:#2a5a9a}
+#page-dnb .sg-head{border-left-color:#a01015}
+.sg-name{font-size:13px;color:#f0f0f0;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sg-throw{font-size:11px;color:#c8a455;letter-spacing:.06em;border:.5px solid #2a2418;padding:2px 8px;border-radius:3px;background:#100d07}
+.sg-tag{font-size:11px;color:#777}
+.series-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:0;padding:.7rem .9rem .9rem;background:#0c0c0c;border:.5px solid #1d1d1d;border-top:none;border-left:2px solid #2a2418;border-radius:0 0 8px 8px}
+#page-meyer .series-tabs{border-left-color:#2a5a9a}
+#page-dnb .series-tabs{border-left-color:#a01015}
+.series-block{break-inside:avoid;margin-bottom:1rem}
+.stab{font-size:12px;padding:5px 12px;border:.5px solid #333;border-radius:4px;color:#aaa;cursor:pointer;background:#111;transition:all .15s;white-space:nowrap}
+.stab:hover{color:#ccc;border-color:#444}
+.stab.on{color:#c8a455;border-color:#c8a455;background:#120f08}
+.prod-search{display:flex;align-items:center;gap:1rem;margin:0 0 1.25rem;padding:.9rem 1.1rem;background:#0f0f0f;border:.5px solid #242424;border-radius:8px;flex-wrap:wrap;box-sizing:border-box}
+.ps-input{flex:1;min-width:200px;background:#141414;border:.5px solid #2a2a2a;border-radius:6px;padding:.6rem .9rem;color:#eee;font-size:14px;font-family:inherit}
+.ps-input:focus{outline:none;border-color:#c8a455}
+.ps-input::placeholder{color:#666}
+.ps-filter{display:flex;align-items:center;gap:.5rem}
+.ps-lbl{font-size:12px;color:#999}
+.ps-select{background:#141414;border:.5px solid #2a2a2a;border-radius:6px;padding:.55rem .7rem;color:#eee;font-size:13px;font-family:inherit;cursor:pointer}
+.ps-select:focus{outline:none;border-color:#c8a455}
+.ps-count{font-size:12px;color:#888;margin-left:auto}
+.stab.hidden,.sg-head.hidden,.series-block.hidden{display:none !important}
+.prod-layout{display:flex;gap:1.5rem;align-items:flex-start;margin-top:0}
+.prod-left{flex:1;min-width:0;max-width:760px}
+#page-meyer .prod-left,#page-dnb .prod-left{column-count:2;column-gap:14px}
+#page-meyer .series-block,#page-dnb .series-block{display:inline-block;width:100%;margin-bottom:14px}
+.prod-left .sg-head:first-child{margin-top:0}
+.prod-right{flex:0 0 460px;max-width:460px;position:sticky;top:72px;}
+.prod-right:empty::before{content:'제품을 선택하면 상세 정보가 여기에 표시됩니다.';display:flex;align-items:center;justify-content:center;min-height:300px;color:#555;font-size:14px;border:.5px dashed #2a2a2a;border-radius:10px;text-align:center;padding:2rem}
+.prod-detail{display:flex;flex-direction:column;gap:1.25rem;align-items:stretch;}
+.prod-info{max-width:440px}
+.prod-info{order:2}
+.prod-img{order:1;width:100%;background:#ffffff;border:.5px solid #333;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;min-height:280px;gap:.6rem}
+.prod-img.empty{background:#111}
+.prod-img img{max-width:340px;width:100%;height:auto;display:block;mix-blend-mode:multiply}
+/* Meyer: 제품별 사진 시각 크기 통일 (세로/가로형 혼재 보정) */
+#page-meyer .prod-img,#page-dnb .prod-img{min-height:340px;height:340px;padding:1.25rem}
+#page-meyer .prod-img img,#page-dnb .prod-img img{max-width:300px;max-height:280px;width:auto;height:auto;object-fit:contain}
+.prod-img-ph{width:100%;aspect-ratio:1;background:#161616;border:.5px dashed #383838;border-radius:6px;display:flex;align-items:center;justify-content:center}
+.prod-img-ph span{font-size:10px;color:#555;text-align:center;line-height:1.5}
+.prod-img-name{font-size:13px;color:#666;text-align:center;margin-top:.2rem;font-weight:600}
+.prod-info{flex:1;min-width:280px}
+.prod-name{font-size:23px;font-weight:700;color:#fafafa;margin-bottom:4px}
+.prod-type{font-size:15px;color:#c8a455;margin-bottom:1.1rem}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.1rem}
+.spec-card{background:#111;border:.5px solid #222;border-radius:6px;padding:.9rem 1.1rem}
+.spec-label{font-size:12px;color:#9a9a9a;letter-spacing:.05em;margin-bottom:6px}
+.spec-val{font-size:18px;font-weight:600;color:#f4f4f4}
+.spec-val.wait{color:#888;font-style:italic;font-weight:400}
+.prod-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:.875rem}
+.ptag{font-size:12px;padding:3px 10px;border-radius:3px;border:.5px solid #2a2a2a;color:#aaa;background:#111}
+.ptag.new{border-color:#3a2e14;color:#c8a455;background:#120f08}
+.ptag.flag{border-color:#1e2a1e;color:#6aaa6a;background:#0d150d}
+.ptag.pilot{border-color:#2a1e2a;color:#aa84aa;background:#150d15}
+.ptag.type{border-color:#24242a;color:#9a9aba;background:#0d0d12}
+.prod-note{font-size:15px;color:#c2c2c2;line-height:1.7;padding:.9rem 1.1rem;background:#0f0f0f;border-left:2px solid #2a2a2a;border-radius:0 4px 4px 0}
+.info-note{font-size:11px;color:#666;margin-top:1.25rem;padding:.625rem .75rem;background:#0d0d0d;border:.5px solid #1a1a1a;border-radius:4px}
+.ptable{width:100%;border-collapse:collapse;margin-bottom:1.5rem}
+.ptable th{text-align:left;font-size:11px;color:#888;font-weight:400;padding:.5rem .75rem;border-bottom:.5px solid #222;letter-spacing:.06em;text-transform:uppercase}
+.ptable td{padding:.7rem .75rem;border-bottom:.5px solid #1a1a1a;color:#bbb;vertical-align:top;font-size:13px}
+.ptable tr:hover td{background:#0f0f0f}
+.ptable td.nm{color:#e0e0e0;font-weight:600}
+.badge{display:inline-block;font-size:10px;padding:1px 7px;border-radius:3px;border:.5px solid #2a2a2a;color:#999;background:#111;margin-right:3px;white-space:nowrap}
+.badge.new{border-color:#3a2e14;color:#c8a455;background:#120f08}
+.badge.flag{border-color:#1e2a1e;color:#6aaa6a;background:#0d150d}
+.badge.pilot{border-color:#2a1e2a;color:#aa84aa;background:#150d15}
+.biz-item{background:#111;border:.5px solid #222;border-left:2px solid #3a2e14;border-radius:0 6px 6px 0;padding:.875rem 1.1rem;margin-bottom:8px}
+.biz-hd{display:flex;align-items:center;gap:.75rem;margin-bottom:.35rem;flex-wrap:wrap}
+.biz-title{font-size:13px;color:#e0e0e0;font-weight:600}
+.biz-tag{font-size:10px;padding:1px 7px;background:#120f08;border:.5px solid #3a2e14;color:#c8a455;border-radius:3px}
+.biz-desc{font-size:13px;color:#b5b5b5;line-height:1.65}
+.biz-products{font-size:11px;color:#666;margin-top:.4rem}
+.biz-products span{color:#999}
+.sw-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.amp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem}
+.amp-card{background:#111;border:.5px solid #222;border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.amp-img{background:#fff;padding:.5rem 1rem;display:flex;align-items:center;justify-content:center;min-height:90px}
+.amp-img img{width:100%;height:auto;max-height:120px;object-fit:contain;mix-blend-mode:multiply}
+.amp-img.empty{background:#141414;min-height:90px}
+.amp-img.empty .ph{font-size:10px;color:#555;border:.5px dashed #383838;border-radius:6px;padding:1.5rem 1rem;width:100%;text-align:center}
+.amp-body{padding:.875rem 1.1rem}
+.amp-name{font-size:15px;font-weight:700;color:#f0f0f0;margin-bottom:2px}
+.amp-type{font-size:11px;color:#c8a455;margin-bottom:.5rem}
+.amp-spec{font-size:12px;color:#bbb;line-height:1.6}
+.amp-spec b{color:#ddd;font-weight:600}
+.sw-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.sw-name{font-size:13px;color:#e0e0e0;font-weight:600;margin-bottom:2px}
+.sw-type{font-size:10px;color:#c8a455;margin-bottom:.4rem}
+.sw-desc{font-size:12px;color:#b0b0b0;line-height:1.6}
+.sw-card{position:relative}
+.sw-tag-new{position:absolute;top:.875rem;right:1rem;font-size:9px;padding:1px 7px;border-radius:3px;background:#120f08;border:.5px solid #3a2e14;color:#c8a455}
+.sw-edge{margin-top:.6rem;padding-top:.6rem;border-top:.5px solid #1e1e1e;font-size:11px;color:#9a8a6a;line-height:1.6}
+.sw-edge b{color:#c8a455;font-weight:600}
+.sw-meta{font-size:10px;color:#666;margin-top:.4rem}
+.global-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:1.25rem}
+.g-card{background:#111;border:.5px solid #222;border-radius:6px;padding:.875rem 1rem}
+.g-region{font-size:10px;color:#c8a455;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.g-hq{font-size:13px;color:#ddd;font-weight:600;margin-bottom:.25rem}
+.g-desc{font-size:12px;color:#9a9a9a}
+.tl{border-left:.5px solid #2a2a2a;margin-left:.5rem;padding-left:1.25rem}
+.tl-item{position:relative;margin-bottom:1rem}
+.tl-item::before{content:'';position:absolute;left:-1.45rem;top:5px;width:6px;height:6px;border-radius:50%;background:#3a2e14;border:1px solid #c8a455}
+.tl-yr{font-size:10px;color:#c8a455;font-weight:600}
+.tl-tx{font-size:13px;color:#b5b5b5;margin-top:1px;line-height:1.6}
+.tl-tx b{color:#ddd;font-weight:600}
+.ctable{width:100%;border-collapse:collapse}
+.ctable th{font-size:10px;color:#666;font-weight:400;text-transform:uppercase;letter-spacing:.06em;padding:.5rem .75rem;border-bottom:.5px solid #222;text-align:left}
+.ctable td{padding:.7rem .75rem;border-bottom:.5px solid #181818;font-size:12px;color:#999;vertical-align:top}
+.ctable td:first-child{color:#ddd;font-weight:600}
+.ctable tr.hl td{background:#0f0d08}
+.ctable tr.hl td:first-child{color:#c8a455}
+.dot-y{color:#6aaa6a}
+.dot-p{color:#8888aa}
+.dot-n{color:#444}
+/* 핵심기술 */
+.tech-hero{background:linear-gradient(135deg,#13110b,#0d0d0d);border:.5px solid #2a2418;border-radius:10px;padding:1.5rem 1.75rem;margin-bottom:1.5rem}
+.tech-hero-tag{font-size:11px;letter-spacing:.1em;color:#c8a455;text-transform:uppercase;margin-bottom:.5rem}
+.tech-hero-title{font-size:22px;font-weight:700;color:#f4f4f4;margin-bottom:.6rem}
+.tech-hero-desc{font-size:15px;color:#c2c2c2;line-height:1.75}
+.tech-block{background:#111;border:.5px solid #222;border-radius:8px;padding:1.1rem 1.25rem;margin-bottom:10px}
+.tech-block-h{display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem}
+.tech-block-name{font-size:15px;font-weight:700;color:#f0f0f0}
+.tech-block-badge{font-size:10px;padding:2px 8px;border-radius:3px;background:#120f08;border:.5px solid #3a2e14;color:#c8a455}
+.tech-block-desc{font-size:14px;color:#bbb;line-height:1.7}
+.tech-block-desc b{color:#e0e0e0;font-weight:600}
+.tech-spec-inline{display:flex;flex-wrap:wrap;gap:8px;margin-top:.7rem}
+.tech-chip{font-size:12px;padding:3px 10px;border-radius:4px;background:#0d0d0d;border:.5px solid #2a2a2a;color:#c8a455}
+/* 대표사례 */
+.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.case-card{background:#111;border:.5px solid #222;border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.case-img{background:#161616;height:200px;display:flex;align-items:center;justify-content:center;border-bottom:.5px solid #222;overflow:hidden}
+.case-img .ph{font-size:11px;color:#555;border:.5px dashed #383838;border-radius:6px;padding:2rem 1.5rem;text-align:center;line-height:1.6}
+.case-img img{width:100%;height:100%;display:block;object-fit:cover}
+.case-body{padding:1rem 1.2rem}
+.case-cat{font-size:11px;color:#c8a455;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.3rem}
+.case-name{font-size:16px;font-weight:700;color:#f0f0f0;margin-bottom:.2rem}
+.case-loc{font-size:12px;color:#888;margin-bottom:.6rem}
+.case-desc{font-size:13px;color:#b5b5b5;line-height:1.65}
+.case-sys{font-size:12px;color:#9a8a6a;margin-top:.5rem;padding-top:.5rem;border-top:.5px solid #1e1e1e}
+.case-sys b{color:#c8a455}
+.case-src{font-size:11px;color:#666;margin-top:.4rem;word-break:break-all}
+/* 장단점 */
+.pc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pc-col{background:#111;border:.5px solid #222;border-radius:8px;padding:1.1rem 1.3rem}
+.pc-col.pros{border-top:2px solid #5a9a6a}
+.pc-col.cons{border-top:2px solid #a86a5a}
+.pc-h{font-size:14px;font-weight:700;margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem}
+.pc-h.pros{color:#6aaa6a}
+.pc-h.cons{color:#c88a6a}
+.pc-item{display:flex;gap:.6rem;padding:.55rem 0;border-bottom:.5px solid #181818;font-size:13.5px;color:#c2c2c2;line-height:1.6}
+.pc-item:last-child{border-bottom:none}
+.pc-item .mk{flex-shrink:0;font-weight:700}
+.pc-item.pros .mk{color:#6aaa6a}
+.pc-item.cons .mk{color:#c88a6a}
+.pc-item b{color:#e8e8e8;font-weight:600}
+.ps-filters-row{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 4px; }
+.ps-reset-btn{ background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.7); padding:4px 10px; border-radius:4px; cursor:pointer; font-size:12px; }
+.ps-reset-btn:hover{ background:rgba(255,255,255,0.15); }
+.ps-filter-actions{ display:flex; align-items:center; gap:12px; margin-top:2px; }
+.sw-card{ background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; overflow:hidden; display:flex; flex-direction:column; }
+.sw-card-top{ display:flex; align-items:stretch; }
+.sw-card-img{ width:130px; min-width:130px; height:82px; overflow:hidden; background:#0c0c18; flex-shrink:0; display:flex; align-items:center; justify-content:center; border-right:1px solid rgba(255,255,255,0.06); }
+.sw-card-img img{ width:100%; height:100%; object-fit:cover; display:block; }
+.sw-card-img .sw-img-ph{ color:#3a3a4a; font-size:9px; text-align:center; padding:6px; line-height:1.5; }
+.sw-card-right{ flex:1; padding:10px 13px; display:flex; flex-direction:column; justify-content:center; gap:2px; min-width:0; }
+.sw-card-body{ padding:10px 16px 12px; display:flex; flex-direction:column; gap:5px; border-top:1px solid rgba(255,255,255,0.05); flex:1; }
+.sw-card-footer{ padding:7px 16px 10px; display:flex; align-items:center; gap:10px; border-top:1px solid rgba(255,255,255,0.05); margin-top:auto; }
+.sw-link{ display:inline-flex; align-items:center; gap:5px; padding:4px 10px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:4px; font-size:11px; color:rgba(255,255,255,0.6); text-decoration:none; transition:background .15s; white-space:nowrap; }
+.sw-link:hover{ background:rgba(255,255,255,0.13); color:#fff; }
+.sw-link svg{ flex-shrink:0; }
+/* prod-name + 버튼 가로 배치 */
+.prod-name-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:4px; }
+.prod-name-row .prod-name{ margin-bottom:0; }
+/* Meyer/d&b 섹션 첫 콘텐츠 위 여백 */
+.biz-item:first-child,.sw-grid,.tech-block:first-child,.case-grid,.pc-wrap,.global-grid,.tl,.amp-grid{margin-top:.5rem}
+.sw-card-body .sw-desc{font-size:12px;line-height:1.6;color:rgba(255,255,255,.7)}
+/* 통합 검색 */
+.all-brand-section{margin-bottom:2rem;}
+.all-brand-hd{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:0 0 .6rem;padding-bottom:.35rem;border-bottom:.5px solid;}
+.all-series-block{margin-bottom:.75rem;}
+.all-series-block .sg-name{font-size:11px;opacity:.45;margin-bottom:.3rem;letter-spacing:.03em;}
+.all-series-block .sg-stabs{display:flex;flex-wrap:wrap;gap:4px;}
+/* 통합 검색 상세 패널 */
+.all-detail-inner{display:grid;grid-template-columns:260px 1fr;gap:1.5rem;align-items:start;}
+.all-detail-specs{display:flex;flex-direction:column;gap:4px;}
+.all-detail-row{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;font-size:13px;border-bottom:.5px solid rgba(255,255,255,.05);padding:4px 0;}
+.all-dk{opacity:.55;white-space:nowrap;flex-shrink:0;}
+.all-dv{text-align:right;font-weight:500;color:#eee;}
+/* all-stab 카드 */
+.all-stab{transition:background .12s,border-color .12s;}
+.all-stab:hover{background:rgba(255,255,255,0.06)!important;}
+.all-stab.on{background:rgba(255,255,255,0.09)!important;border-color:rgba(255,255,255,.35)!important;}
+/* 전체 제품 페이지 */
+#all-prod-layout {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+#all-prod-layout .prod-left {
+      flex: 1;
+      min-width: 0;
+      max-width: 760px;
+    }
+#all-prod-layout > .prod-right {
+      position: sticky !important;
+      top: 72px !important;
+      max-height: calc(100vh - 88px) !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      display: block !important;
+    }

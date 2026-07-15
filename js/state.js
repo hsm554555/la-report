@@ -1,0 +1,1 @@
+var cmpMode='any';
