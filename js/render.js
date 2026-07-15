@@ -11,8 +11,13 @@ function buildSpecDetail(d){
   if(d.coverage || d.h_coverage || d.enclosure_dir || d.waveguide_dir || d.conical_coverage || d.rotatable_horn){
     var covRows = [];
     if(d.coverage){ var covLabel = d.coverage_label || 'Nominal directivity (-6 dB)'; covRows.push([covLabel, d.coverage]); }
-    if(d.h_coverage) covRows.push(['Horizontal coverage', d.h_coverage]);
-    if(d.v_coverage) covRows.push(['Vertical coverage', d.v_coverage]);
+    var simpleDeg = /^\d+(\.\d+)?°$/;
+    if(d.h_coverage && d.v_coverage && simpleDeg.test(d.h_coverage) && simpleDeg.test(d.v_coverage)){
+      covRows.push(['Coverage (H × V)', d.h_coverage+' × '+d.v_coverage]);
+    } else {
+      if(d.h_coverage) covRows.push(['Horizontal coverage', d.h_coverage]);
+      if(d.v_coverage) covRows.push(['Vertical coverage', d.v_coverage]);
+    }
     if(d.conical_coverage) covRows.push(['Conical coverage (axisymmetric)', d.conical_coverage]);
     if(d.rotatable_horn) covRows.push(['Rotatable horn (H × V)', d.rotatable_horn]);
     if(d.splay) covRows.push(['Splay angle settings', d.splay]);

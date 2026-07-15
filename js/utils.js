@@ -49,8 +49,21 @@ function extractDetailRows(d, brand){
            d._spec_spl || '';
   if(splStr || splVal) add('Max SPL', splStr || (splVal+' dB'), function(){ return splVal; });
   // 커버리지
-  var cov = d.waveguide_dir||d.coverage||d.h_coverage||d.conical_coverage||d.enclosure_dir||'';
-  if(cov) add('커버리지', cov, null);
+  var simpleDeg = /^\d+(\.\d+)?°$/;
+  if(d.h_coverage && d.v_coverage && simpleDeg.test(d.h_coverage) && simpleDeg.test(d.v_coverage)){
+    // 가로·세로 모두 단순 각도값이면 "H × V" 한 줄로 합쳐서 표기
+    add('커버리지 (H × V)', d.h_coverage+' × '+d.v_coverage, null);
+  } else {
+    var covSrc = d.waveguide_dir ? 'waveguide_dir' : d.coverage ? 'coverage' : d.h_coverage ? 'h_coverage' :
+                 d.conical_coverage ? 'conical_coverage' : d.enclosure_dir ? 'enclosure_dir' : d.rotatable_horn ? 'rotatable_horn' : '';
+    var cov = covSrc ? d[covSrc] : '';
+    if(cov){
+      // h_coverage가 단일 축(가로) 값만 담고 있을 때만 (Horizontal) 라벨 표기
+      var isSingleAxis = covSrc==='h_coverage' && cov.indexOf('×')<0 && cov.toLowerCase().indexOf('conical')<0;
+      add(isSingleAxis ? '커버리지 (Horizontal)' : '커버리지', cov, null);
+    }
+    if(d.v_coverage) add('커버리지 (Vertical)', d.v_coverage, null);
+  }
   if(d.splay) add('스플레이', d.splay, null);
   // 트랜스듀서
   var lf = [d.lf, d.mf?'MF: '+d.mf:'', d.hf?'HF: '+d.hf:''].filter(Boolean).join(' / ');
@@ -70,12 +83,16 @@ function extractDetailRows(d, brand){
   if(d.freq_response_5db) add('주파수 응답 (-5 dB)', d.freq_response_5db, function(v){
     var m=(v||'').match(/(\d+)/); return m?parseInt(m[1]):null;
   });
+  if(!d.presets&&!d.operating_range&&!d.freq_response_5db&&d._spec_bw) add('대역폭 (-10 dB)', d._spec_bw, function(v){
+    var m=(v||'').match(/(\d+)/); return m?parseInt(m[1]):null;
+  });
   // 무게
   add('무게', d.weight, function(v){
     var m=(v||'').match(/([\d.]+)\s*kg/); return m?parseFloat(m[1]):null;
   });
   // 치수
   if(d.dim_full) add('치수', d.dim_full, null);
+  else if(d._spec_dim) add('치수', d._spec_dim, null);
   if(d.ip) add('IP 등급', d.ip, null);
   return rows;
 }

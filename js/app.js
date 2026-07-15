@@ -316,8 +316,4 @@ if(cB) cB.addEventListener('change', function(){applyCmpFilter();renderCompare()
 var cC=document.getElementById('cmpC');
 
 if(cC) cC.addEventListener('change', function(){renderCompare();});
-
-var cC=document.getElementById('cmpC');
-
-if(cC) cC.addEventListener('change', function(){renderCompare();});
 }

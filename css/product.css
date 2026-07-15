@@ -54,6 +54,9 @@
 /* Meyer: 제품별 사진 시각 크기 통일 (세로/가로형 혼재 보정) */
 #page-meyer .prod-img,#page-dnb .prod-img{min-height:340px;height:340px;padding:1.25rem}
 #page-meyer .prod-img img,#page-dnb .prod-img img{max-width:300px;max-height:280px;width:auto;height:auto;object-fit:contain}
+/* 전체 제품 탭: 브랜드 무관하게 사진 크기 통일 (세로/가로형 혼재 보정) */
+#all-detail-area .prod-img{min-height:340px;height:340px;padding:1.25rem}
+#all-detail-area .prod-img img{max-width:300px;max-height:280px;width:auto;height:auto;object-fit:contain}
 .prod-img-ph{width:100%;aspect-ratio:1;background:#161616;border:.5px dashed #383838;border-radius:6px;display:flex;align-items:center;justify-content:center}
 .prod-img-ph span{font-size:10px;color:#555;text-align:center;line-height:1.5}
 .prod-img-name{font-size:13px;color:#666;text-align:center;margin-top:.2rem;font-weight:600}
@@ -225,5 +228,6 @@
       max-height: calc(100vh - 88px) !important;
       overflow-y: auto !important;
       overflow-x: hidden !important;
+      overscroll-behavior: contain !important;
       display: block !important;
     }

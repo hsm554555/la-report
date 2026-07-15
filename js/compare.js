@@ -28,24 +28,15 @@ function buildCompareOptions(){
   if(sc) sc.addEventListener('input', function(){ buildOptionsFor(document.getElementById('cmpC'), sc.value, getCmpARef()); });
 }
 
-function setCmpMode(mode){
-  cmpMode=mode;
-  document.querySelectorAll('.cmp-mode-btn').forEach(function(b){b.classList.remove('on');});
-  var ids={any:'cmpModeAny',similar:'cmpModeSim',upgrade:'cmpModeUp',downgrade:'cmpModeDown'};
-  var active=document.getElementById(ids[mode]); if(active)active.classList.add('on');
-  var ss=document.getElementById('cmpSplRange'),ws=document.getElementById('cmpWeightRange'),bs=document.getElementById('cmpBwRange');
-  if(mode==='similar'){if(ss)ss.value='6';if(ws)ws.value='20p';if(bs)bs.value='10';}
-  else if(mode==='upgrade'){if(ss)ss.value='up';if(ws)ws.value='down';if(bs)bs.value='lower';}
-  else if(mode==='downgrade'){if(ss)ss.value='down';if(ws)ws.value='up';if(bs)bs.value='higher';}
-  else{if(ss)ss.value='';if(ws)ws.value='';if(bs)bs.value='';}
-  applyCmpFilter();
-}
-
 function getCmpARef(){
   var selA=document.getElementById('cmpA'); if(!selA||!selA.value)return null;
   var parts=selA.value.split('::'); if(parts.length<2)return null;
   var brand=parts[0],key=parts[1]; var bd=BRANDS[brand]; if(!bd)return null;
-  var p=bd.data[key]; if(!p)return null; var d=(p.spec&&p.spec.detail)||{};
+  var p=bd.data[key]; if(!p)return null;
+  var s=p.spec||{}; var d=Object.assign({},s.detail||{});
+  if(!d.max_spl&&!d.max_spl_by_amp&&!d.linear_peak&&!d.aes75&&s.spl) d._spec_spl=s.spl;
+  if(!d.presets&&!d.operating_range&&!d.freq_response_5db&&s.bw) d._spec_bw=s.bw;
+  if(!d.dim_full&&s.dim) d._spec_dim=s.dim;
   function getPType(px){
     var t=(px.t||'').toLowerCase(), n=(px.n||'').toLowerCase();
     if(t.indexOf('subwoofer')>=0||t.indexOf('low-frequency')>=0||
@@ -78,13 +69,7 @@ function applyCmpFilter(){
   var panel=document.getElementById('cmpFilterPanel');
   if(!ref){if(panel)panel.style.display='none';return;}
   if(panel)panel.style.display='';
-  var refEl=document.getElementById('cmpFilterRef');
-  if(refEl)refEl.textContent=ref.brand+' '+ref.p.n+' 기준 · SPL '+ref.spl+'dB · '+ref.weight+'kg · 저역 '+ref.bw+'Hz';
-    var lfF=(document.getElementById('cmpLfFilter')||{value:''}).value||'';
-  var wtRng=(document.getElementById('cmpWeightRange')||{}).value||'';
-  var bwRng=(document.getElementById('cmpBwRange')||{}).value||'';
-  var brdF=(document.getElementById('cmpBrandFilter')||{}).value||'';
-  var useF2=(document.getElementById('cmpUseFilter')||{}).value||'';
+  var lfF=(document.getElementById('cmpLfFilter')||{value:''}).value||'';
 
   // ptype 분류 헬퍼 (applyCmpFilter 내부용)
   function classifyPtype(p2){
@@ -202,6 +187,8 @@ function cmpCard(brand, key, hl, refRows){
   var s = p.spec || {};
   var d = Object.assign({}, s.detail || {});
   if(!d.max_spl&&!d.max_spl_by_amp&&!d.linear_peak&&!d.aes75&&s.spl) d._spec_spl=s.spl;
+  if(!d.presets&&!d.operating_range&&!d.freq_response_5db&&s.bw) d._spec_bw=s.bw;
+  if(!d.dim_full&&s.dim) d._spec_dim=s.dim;
   var imgSrc = (p.img && bd.img[p.img]) ? bd.img[p.img] : (bd.img[key] || null);
   var imgHtml = imgSrc ? '<div class="cmp-card-img"><img src="'+imgSrc+'"></div>' : '<div class="cmp-card-img empty">사진 없음</div>';
 
@@ -250,8 +237,11 @@ function renderCompare(){
   function mkRef(val){
     if(!val)return null; var pts=val.split('::'); if(pts.length<2)return null;
     var bd=BRANDS[pts[0]]; if(!bd)return null; var p=bd.data[pts[1]]; if(!p)return null;
-    var d=Object.assign({},(p.spec&&p.spec.detail)||{});
-    if(!d.max_spl&&!d.max_spl_by_amp&&!d.linear_peak&&!d.aes75&&p.spec&&p.spec.spl) d._spec_spl=p.spec.spl;
+    var ps=p.spec||{};
+    var d=Object.assign({},ps.detail||{});
+    if(!d.max_spl&&!d.max_spl_by_amp&&!d.linear_peak&&!d.aes75&&ps.spl) d._spec_spl=ps.spl;
+    if(!d.presets&&!d.operating_range&&!d.freq_response_5db&&ps.bw) d._spec_bw=ps.bw;
+    if(!d.dim_full&&ps.dim) d._spec_dim=ps.dim;
     return{brand:pts[0],key:pts[1],p:p,d:d,spl:extractSpl(d),weight:extractWeight(d),bw:extractBw(d)};
   }
   var refA=a?mkRef(a):null, refB=b?mkRef(b):null, refC=c?mkRef(c):null;
