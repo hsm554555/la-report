@@ -19,7 +19,8 @@ function applyAllFilter(){
   var total=0;
   ALL_BRAND_CFG.forEach(function(bc){
     var bd=getAllBd(bc.name);if(!bd)return;
-    var bsec=document.querySelector('#all-products-area .all-brand-section[data-brand="'+bc.name+'"]');
+    var bsec=null;
+    document.querySelectorAll('#all-products-area .all-brand-section').forEach(function(s){if(s.getAttribute('data-brand')===bc.name)bsec=s;});
     if(!bsec)return;
     bsec.querySelectorAll('.all-series-block').forEach(function(sb){
       var anyShown=false;
@@ -62,7 +63,8 @@ function resetAllFilter(){
 function showAllDetail(brandName, key){
   // Highlight stab
   document.querySelectorAll('#all-products-area .all-stab').forEach(function(s){s.classList.remove('on');});
-  var clicked=document.querySelector('.all-stab[data-all-brand="'+brandName+'"][data-all-key="'+key+'"]');
+  var clicked=null;
+  document.querySelectorAll('#all-products-area .all-stab').forEach(function(s){if(s.getAttribute('data-all-brand')===brandName&&s.getAttribute('data-all-key')===key)clicked=s;});
   if(clicked) clicked.classList.add('on');
 
   var allPanel=document.getElementById('all-detail-area');
