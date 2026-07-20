@@ -67,46 +67,46 @@ function showAllDetail(brandName, key){
   document.querySelectorAll('#all-products-area .all-stab').forEach(function(s){if(s.getAttribute('data-all-brand')===brandName&&s.getAttribute('data-all-key')===key)clicked=s;});
   if(clicked) clicked.classList.add('on');
 
-  var allPanel=document.getElementById('all-detail-area');
-  if(!allPanel) return;
+  var modalContent=document.getElementById('allDetailModalContent');
+  if(!modalContent) return;
 
-  // 임시 숨겨진 div에 각 브랜드 render 결과를 받아서 all-detail-area로 이동
+  // 임시 숨겨진 div에 각 브랜드 render 결과를 받는다 (per-brand render 재사용)
   var tmpId={'L-Acoustics':'detail-area','Meyer Sound':'m-detail-area','d&b audiotechnik':'d-detail-area'}[brandName];
   if(!tmpId) return;
-
-  // 실제 detail-area 요소를 임시 보관
   var realEl=document.getElementById(tmpId);
-
-  // 임시 div 생성 (DOM에 붙이되 숨김)
   var tmpDiv=document.createElement('div');
   tmpDiv.id=tmpId;
   tmpDiv.style.display='none';
   document.body.appendChild(tmpDiv);
-
-  // 실제 요소의 id 제거 (충돌 방지)
   if(realEl) realEl.removeAttribute('id');
-
   try{
     if(brandName==='L-Acoustics')           render(key);
     else if(brandName==='Meyer Sound')      mRender(key);
     else if(brandName==='d&b audiotechnik') dRender(key);
   }catch(e){}
-
-  // tmpDiv의 innerHTML을 allPanel로 이동
-  allPanel.innerHTML=tmpDiv.innerHTML;
-
-  // spacer 추가
-  var spacer=document.createElement('div');
-  spacer.style.height='4rem';
-  allPanel.appendChild(spacer);
-
-  // 정리
+  modalContent.innerHTML=tmpDiv.innerHTML;
   tmpDiv.remove();
   if(realEl) realEl.id=tmpId;
 
-  allPanel.scrollTop=0;
-  var pr=allPanel.closest('.prod-right');
-  if(pr) pr.scrollTop=0;
+  // 팝업(모달) 열기 — position:fixed 라 전체 페이지 스크롤과 무관하게 팝업 내부에서만 스크롤
+  var overlay=document.getElementById('allDetailModal');
+  if(overlay){
+    overlay.style.display='flex';
+    modalContent.scrollTop=0;
+  }
+}
+
+function closeAllDetailModal(){
+  var overlay=document.getElementById('allDetailModal');
+  if(overlay) overlay.style.display='none';
+}
+
+// ESC 로 팝업 닫기 (한 번만 바인딩)
+if(!window.__admEscBound){
+  window.__admEscBound=true;
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Escape') closeAllDetailModal();
+  });
 }
 
 function renderAllProducts(){
@@ -144,8 +144,7 @@ function renderAllProducts(){
     html+='</div>';
   });
   area.innerHTML=html;
-  var first=area.querySelector('.all-stab');
-  if(first)first.click();
+  // 초기 로드 시 자동으로 팝업이 뜨지 않도록 first.click() 제거 (제품 클릭 시에만 팝업)
   var qi=document.getElementById('allQuery');
   if(qi){qi.removeEventListener('input',applyAllFilter);qi.addEventListener('input',applyAllFilter);}
   applyAllFilter();

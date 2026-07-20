@@ -64,8 +64,14 @@
 #page-meyer .prod-img,#page-dnb .prod-img{min-height:340px;height:340px;padding:1.25rem}
 #page-meyer .prod-img img,#page-dnb .prod-img img{max-width:300px;max-height:280px;width:auto;height:auto;object-fit:contain}
 /* 전체 제품 탭: 브랜드 무관하게 사진 크기 통일 (세로/가로형 혼재 보정) */
-#all-detail-area .prod-img{min-height:340px;height:340px;padding:1.25rem}
-#all-detail-area .prod-img img{max-width:300px;max-height:280px;width:auto;height:auto;object-fit:contain}
+#all-detail-area .prod-img{min-height:170px;height:170px;padding:.5rem;gap:.3rem;overflow:hidden}
+#all-detail-area .prod-img img{max-width:180px;max-height:120px;width:auto;height:auto;object-fit:contain}
+#all-detail-area .prod-img-name{font-size:11px;margin-top:0}
+/* 스펙 스크롤 영역: 스크롤 범위를 줄이기 위해 행 간격/글자 크기 압축 */
+#all-detail-area .spec-detail{gap:6px;margin:8px 0}
+#all-detail-area .sd-group-h{padding:4px 10px;font-size:10px}
+#all-detail-area .sd-row{padding:4px 10px;font-size:11.5px;gap:6px}
+#all-detail-area .sd-k,#all-detail-area .sd-v{line-height:1.35}
 .prod-img-ph{width:100%;aspect-ratio:1;background:#161616;border:.5px dashed #383838;border-radius:6px;display:flex;align-items:center;justify-content:center}
 .prod-img-ph span{font-size:10px;color:#555;text-align:center;line-height:1.5}
 .prod-img-name{font-size:13px;color:#666;text-align:center;margin-top:.2rem;font-weight:600}
@@ -235,8 +241,24 @@
       position: sticky !important;
       top: 72px !important;
       max-height: calc(100vh - 88px) !important;
-      overflow-y: auto !important;
+      overflow: hidden !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+#all-prod-layout > .prod-right > .prod-img {
+      flex-shrink: 0 !important;
+      order: 0 !important;
+    }
+#all-prod-layout > .prod-right > .all-detail-scroll {
+      overflow-y: scroll !important;
       overflow-x: hidden !important;
       overscroll-behavior: contain !important;
-      display: block !important;
+      order: 1 !important;
+      flex: 1 1 auto !important;
+      min-height: 0 !important;
+      scrollbar-width: thin !important;
+      scrollbar-color: #555 transparent !important;
     }
+#all-prod-layout > .prod-right > .all-detail-scroll::-webkit-scrollbar { width: 8px; }
+#all-prod-layout > .prod-right > .all-detail-scroll::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
+#all-prod-layout > .prod-right > .all-detail-scroll::-webkit-scrollbar-thumb:hover { background: #777; }

@@ -240,6 +240,7 @@ if(dProducts){
         if(dispF==='point') return sn.indexOf('point source')>=0;
         if(dispF==='sub') return sn.indexOf('subwoofer')>=0||sn.indexOf('sub')>=0;
         if(dispF==='aug') return sn.indexOf('augmented')>=0;
+        if(dispF==='column') return sn.indexOf('column')>=0;
         if(dispF==='monitor') return sn.indexOf('stage monitor')>=0;
         return true;
       })();

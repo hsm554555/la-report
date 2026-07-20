@@ -129,7 +129,7 @@ function classifyPtypeAll(p){
   var t=(p.t||'').toLowerCase(),n=(p.n||'').toLowerCase();
   if(t.indexOf('subwoofer')>=0||t.indexOf('lf extension')>=0||t.indexOf('infra sub')>=0||t.indexOf('low frequency')>=0||t.indexOf('low-frequency')>=0||t.indexOf('lfc')>=0||n.indexOf('lfc')>=0||/^(ks|sb|cs1)/.test(n)||n.indexOf('k1-sb')>=0||n==='syva sub'||n==='syva low') return 'sub';
   if(t.indexOf('augmented array')>=0||t.indexOf('a series')>=0) return 'aug';
-  if((t.indexOf('s series')>=0||t.indexOf('colinear source')>=0||t.indexOf('u series')>=0)&&t.indexOf('compact column')<0) return 'column';
+  if(t.indexOf('column speaker')>=0||((t.indexOf('s series')>=0||t.indexOf('colinear source')>=0||t.indexOf('u series')>=0)&&t.indexOf('compact column')<0)) return 'column';
   if(t.indexOf('stage monitor')>=0||n.indexOf('mjf')>=0) return 'monitor';
   if(t.indexOf('line array')>=0||t.indexOf('wst')>=0||t.indexOf('puls')>=0||t.indexOf('variable curvature')>=0||t.indexOf('compact line source')>=0||t.indexOf('compact column')>=0||t.indexOf('k series')>=0||t.indexOf('l series')>=0||t.indexOf('ccl')>=0) return 'line';
   if(t.indexOf('point source')>=0||t.indexOf('x series')>=0||t.indexOf('installation point')>=0||t.indexOf('ultracompact')>=0||t.indexOf('ceiling')>=0||t.indexOf('self-powered miniature')>=0||t.indexOf('slim')>=0) return 'point';
